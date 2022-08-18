@@ -1,4 +1,4 @@
-import type { App } from "vue";
+import type { App, Plugin } from "vue";
 import { createInstance } from "@shopware-pwa/shopware-6-client";
 import { createShopware } from "@shopware-pwa/composables";
 import { ref } from "vue";
@@ -61,4 +61,4 @@ export default {
     app.provide("shopware", shopwareContext);
     app.provide("swSessionContext", ref());
   },
-};
+} as Plugin;

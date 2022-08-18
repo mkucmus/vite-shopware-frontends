@@ -29,7 +29,12 @@ const count = ref(0);
 
 <template>
   <div class="sw-product-card">
-    <span class="name">{{ product.translated?.name }}</span>
+    <span class="name"
+      >{{ product.translated?.name }} ({{
+        product.calculatedPrice.unitPrice
+      }}
+      €)</span
+    >
     <button @click="addToCartProxy" class="sw-add-to-cart-item">
       Add to cart
     </button>

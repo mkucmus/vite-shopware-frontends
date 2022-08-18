@@ -6,7 +6,7 @@ import Products from "./components/Products.vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const { refreshSessionContext } = useSessionContext();
-const { count, refreshCart } = useCart();
+const { count, refreshCart, totalPrice } = useCart();
 
 onMounted(() => {
   refreshSessionContext();
@@ -27,7 +27,9 @@ onMounted(() => {
 
   <Transition name="bounce">
     <div :key="count" class="cart">
-      products in cart: <strong>{{ count }}</strong>
+      products in cart: <strong>{{ count }}</strong
+      ><br />
+      total price: <strong>{{ totalPrice }} €</strong>
     </div>
   </Transition>
   <Products />
@@ -55,6 +57,7 @@ onMounted(() => {
   right: 0;
   padding: 1em;
   font-size: 2em;
+  line-height: 1.2em;
 }
 
 .bounce-enter-active {
