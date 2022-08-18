@@ -35,12 +35,12 @@ export default {
     instance.onConfigChange(({ config }) => {
       try {
         Cookies.set("sw-context-token", config.contextToken || "", {
-          maxAge: 60 * 60 * 24 * 365,
+          expires: 365,
           sameSite: "Lax",
           path: "/",
         });
         Cookies.set("sw-language-id", config.languageId || "", {
-          maxAge: 60 * 60 * 24 * 365,
+          expires: 365,
           sameSite: "Lax",
           path: "/",
         });
