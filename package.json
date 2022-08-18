@@ -1,0 +1,26 @@
+{
+  "name": "vite-shopware-frontends",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@shopware-pwa/composables": "^1.5.3",
+    "@shopware-pwa/composables-next": "^0.1.12",
+    "@shopware-pwa/shopware-6-client": "^1.5.3",
+    "js-cookie": "^3.0.1",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@shopware-pwa/types": "^0.1.12",
+    "@types/js-cookie": "^3.0.2",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.39.5"
+  }
+}
