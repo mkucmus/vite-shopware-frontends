@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import { useCart } from "@shopware-pwa/composables-next";
 import { useSessionContext } from "@shopware-pwa/composables-next";
+import type { LineItem } from "@shopware-pwa/types";
 import { onMounted } from "vue";
 import Products from "./components/Products.vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const { refreshSessionContext } = useSessionContext();
-const { count, refreshCart, totalPrice } = useCart();
+const {
+  count,
+  refreshCart,
+  totalPrice,
+  appliedPromotionCodes,
+  cartItems,
+  removeItem,
+} = useCart();
+
+const clearCart = async () => {
+  for (const item of cartItems.value) {
+    try {
+      item.referencedId &&
+        (await removeItem({ id: item.referencedId } as LineItem));
+    } catch (error) {
+      console.error("problem during removing an item", error);
+    }
+  }
+};
 
 onMounted(() => {
   refreshSessionContext();
@@ -27,9 +46,22 @@ onMounted(() => {
 
   <Transition name="bounce">
     <div :key="count" class="cart">
-      products in cart: <strong>{{ count }}</strong
-      ><br />
-      total price: <strong>{{ totalPrice }} €</strong>
+      <div>
+        <span class="description">Products in cart: </span>:
+        <strong>{{ count }}</strong>
+      </div>
+
+      <div>
+        <span class="description">Total price: </span>
+        <strong>{{ totalPrice }} €</strong>
+      </div>
+      <div v-for="promotion in appliedPromotionCodes" :id="promotion.id">
+        <span class="description">{{ promotion.description }} </span>:
+        <strong>{{ promotion.price?.totalPrice }} €</strong>
+      </div>
+      <div class="actions">
+        <button @click="clearCart()">Clear cart</button>
+      </div>
     </div>
   </Transition>
   <Products />
@@ -60,6 +92,10 @@ onMounted(() => {
   line-height: 1.2em;
 }
 
+.cart .actions button {
+  font-size: 20px;
+}
+
 .bounce-enter-active {
   animation: bounce-in 0.3s;
 }
@@ -76,5 +112,8 @@ onMounted(() => {
   100% {
     transform: scale(1);
   }
+}
+.description {
+  font-size: 0.8em;
 }
 </style>
